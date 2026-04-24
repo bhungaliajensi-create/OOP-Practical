@@ -1,0 +1,56 @@
+import java.io.*;
+
+public class StudentFileDemo {
+    public static void main(String[] args) {
+
+        File file = new File("students.txt");
+
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file);
+
+            fw.write("101 Jensi 85\n");
+            fw.write("102 Rahul 78\n");
+            fw.write("103 Priya 92\n");
+
+            System.out.println("Data written successfully.\n");
+
+        } catch (IOException e) {
+            System.out.println("Error while writing to file.");
+        } finally {
+            try {
+                if (fw != null)
+                    fw.close();
+            } catch (IOException e) {
+                System.out.println("Error closing FileWriter.");
+            }
+        }
+
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+
+            String line;
+            System.out.println("Reading student records:\n");
+
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error while reading file.");
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+                if (fr != null)
+                    fr.close();
+            } catch (IOException e) {
+                System.out.println("Error closing file.");
+            }
+        }
+    }
+}
