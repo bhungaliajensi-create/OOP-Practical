@@ -1,0 +1,56 @@
+import java.io.*;
+
+public class FileAnalysis {
+    public static void main(String[] args) {
+
+        int lineCount = 0;
+        int wordCount = 0;
+        int charCount = 0;
+
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            fr = new FileReader("data.txt");
+            br = new BufferedReader(fr);
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                lineCount++;
+
+                String[] words = line.trim().split("\\s+");
+                if (line.trim().length() > 0) {
+                    wordCount += words.length;
+                }
+
+                for (int i = 0; i < line.length(); i++) {
+                    if (line.charAt(i) != ' ') {
+                        charCount++;
+                    }
+                }
+            }
+
+            System.out.println("Total Lines: " + lineCount);
+            System.out.println("Total Words: " + wordCount);
+            System.out.println("Total Characters (excluding spaces & newlines): " + charCount);
+
+        } 
+        catch (FileNotFoundException e) {
+            System.out.println("Error: File 'data.txt' not found.");
+        } 
+        catch (IOException e) {
+            System.out.println("Error: Problem reading the file.");
+        } 
+        finally {
+            try {
+                if (br != null)
+                    br.close();
+                if (fr != null)
+                    fr.close();
+            } catch (IOException e) {
+                System.out.println("Error closing file.");
+            }
+        }
+    }
+}
